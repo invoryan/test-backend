@@ -29,4 +29,30 @@ class TaskController extends Controller
             ]);
         }
     }
+    public function index()
+    {
+        try {
+            $tasks=Task::orderBy('id','desc')->get();
+            if($tasks){
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Success',
+                    'description' => 'Solicitud exitosa',
+                    'result' => $tasks
+                ]);
+            }
+            return response()->json([
+                'status_code' => 404,
+                'status_message' => 'Error',
+                'description' => 'Tarea no encontrada'
+            ]);
+        }catch (Exception $e) {
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => 'Internal Server Error',
+                'description' => 'Error en el servidor',
+                'problem' => $e->getMessage()
+            ]);
+        }
+    }
 }
