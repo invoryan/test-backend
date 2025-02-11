@@ -72,4 +72,22 @@ class TaskController extends Controller
             ]);
         }
     }
+    public function update(StoreRequest $request,Task $task){
+        try {
+            $task->update($request->all());
+            return response()->json([
+                'status_code' => 201,
+                'status_message' => 'Success',
+                'description' => 'Tarea actualizada correctamente',
+                'result' => $task
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => 'Internal Server Error',
+                'description' => 'Error en el servidor',
+                'problem' => $e->getMessage()
+            ]);
+        }
+    }
 }
