@@ -40,18 +40,35 @@ class TaskController extends Controller
                     'description' => 'Solicitud exitosa',
                     'result' => $tasks
                 ]);
+            } else{
+                return response()->json([
+                    'status_code' => 404,
+                    'status_message' => 'Error',
+                    'description' => 'Tareas no encontradas'
+                ]);
             }
-            return response()->json([
-                'status_code' => 404,
-                'status_message' => 'Error',
-                'description' => 'Tarea no encontrada'
-            ]);
         }catch (Exception $e) {
             return response()->json([
                 'status_code' => 500,
                 'status_message' => 'Internal Server Error',
                 'description' => 'Error en el servidor',
                 'problem' => $e->getMessage()
+            ]);
+        }
+    }
+    public function show(Task $task){
+        if($task){
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Success',
+                'description' => 'Solicitud exitosa',
+                'result' => $task
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => 404,
+                'status_message' => 'Error',
+                'description' => 'Tarea no encontrada'
             ]);
         }
     }
