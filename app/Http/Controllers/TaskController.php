@@ -90,4 +90,20 @@ class TaskController extends Controller
             ]);
         }
     }
+    public function destroy(Task $task){
+        if($task){
+            $task->delete();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Success',
+                'description' => 'Tarea eliminada correctamente',
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => 404,
+                'status_message' => 'Error',
+                'description' => 'Tarea no encontrada'
+            ]);
+        }
+    }
 }
